@@ -1,15 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const AsSeenIn = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      const width = window.innerWidth;
+      setIsMobile(width <= 480);
+      setIsTablet(width > 480 && width <= 768);
+    };
+
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
   const sec2Styles = {
     background: 'linear-gradient(90deg, #00b45e 0%, #00ad50 30%, #009858 100%)',
     maxWidth: '100%',
-    paddingBottom: '42px',
-    backgroundSize: 'contain, contain',
-    backgroundRepeat: 'no-repeat, no-repeat',
-    backgroundPosition: 'center, center',
-    maxWidth: '100%',
-    paddingBottom: '20px',
+    paddingBottom: isMobile ? '30px' : isTablet ? '35px' : '42px',
     display: 'flex',
     position: 'relative'
   };
@@ -17,44 +27,46 @@ const AsSeenIn = () => {
   const container2Styles = {
     maxWidth: '1168px',
     margin: '0 auto',
-    padding: '0 20px',
+    padding: isMobile ? '0 15px' : isTablet ? '0 20px' : '0 20px',
     width: '100%'
   };
 
   const sec2HeadingStyles = {
-    textAlign: 'left',
+    textAlign: 'center',
+    marginBottom: isMobile ? '15px' : isTablet ? '20px' : '20px'
   };
 
   const h2Styles = {
-    color: '#FFFFFF',
-    fontSize: '32px',
-    fontWeight: 'bold',
-    margin: 0,
     textAlign: 'center',
     color: '#FFFFFF',
-    fontSize: '46px',
+    fontSize: isMobile ? '24px' : isTablet ? '32px' : '46px',
     fontWeight: '600',
-    lineHeight: '62px',
-    paddingTop: '20px',
-    marginTop: '0'
+    lineHeight: isMobile ? '32px' : isTablet ? '40px' : '62px',
+    paddingTop: isMobile ? '15px' : isTablet ? '20px' : '20px',
+    marginTop: '0',
+    marginBottom: '0'
   };
 
   const sliderMainStyles = {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    flexWrap: 'wrap',
+    flexWrap: isMobile || isTablet ? 'wrap' : 'nowrap',
+    gap: isMobile ? '20px' : isTablet ? '25px' : '20px',
+    flexDirection: isMobile || isTablet ? 'column' : 'row'
   };
 
   const logosListStyles = {
-    flex: 1,
-    maxWidth: '60%',
-    minWidth: '300px'
+    flex: isMobile || isTablet ? 'none' : 1,
+    maxWidth: isMobile || isTablet ? '100%' : '60%',
+    minWidth: isMobile ? 'auto' : isTablet ? 'auto' : '300px',
+    order: isMobile || isTablet ? 1 : 'unset'
   };
 
   const priceSliderStyles = {
     position: 'relative',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    width: '100%'
   };
 
   const carouselStyles = {
@@ -75,22 +87,54 @@ const AsSeenIn = () => {
   };
 
   const logoItemStyles = {
-    margin: '0 20px',
+    margin: isMobile ? '0 8px' : isTablet ? '0 15px' : '0 20px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    minWidth: '98px',
-    height: '50px'
+    minWidth: isMobile ? '70px' : isTablet ? '85px' : '98px',
+    height: isMobile ? '35px' : isTablet ? '45px' : '50px'
   };
 
   const logoImageStyles = {
     height: 'auto',
-    maxHeight: '50px',
-    width: '98px',
+    maxHeight: isMobile ? '35px' : isTablet ? '45px' : '50px',
+    width: isMobile ? '70px' : isTablet ? '85px' : '98px',
     objectFit: 'contain'
   };
 
-  React.useEffect(() => {
+  const reviewsSecStyles = {
+    textAlign: isMobile || isTablet ? 'center' : 'right',
+    color: '#FFFFFF',
+    minWidth: isMobile || isTablet ? 'auto' : '200px',
+    flexShrink: 0,
+    order: isMobile || isTablet ? 2 : 'unset'
+  };
+
+  const h3Styles = {
+    fontSize: isMobile ? '28px' : isTablet ? '32px' : '36px',
+    fontWeight: 'bold',
+    margin: '0 0 5px 0',
+    color: '#FFFFFF'
+  };
+
+  const sec2ReviewsStyles = {
+    fontSize: isMobile ? '14px' : isTablet ? '15px' : '16px',
+    margin: '0 0 10px 0',
+    color: '#FFFFFF'
+  };
+
+  const greenpalReviewsStyles = {
+    display: 'flex',
+    justifyContent: isMobile || isTablet ? 'center' : 'flex-end'
+  };
+
+  const starImageStyles = {
+    height: isMobile ? '18px' : isTablet ? '20px' : '20px',
+    width: 'auto'
+  };
+
+  // Add CSS for logo color and animation
+  useEffect(() => {
     const style = document.createElement('style');
     style.textContent = `
       @keyframes scroll {
@@ -107,6 +151,12 @@ const AsSeenIn = () => {
           animation: scroll 15s linear infinite;
         }
       }
+      
+      @media (max-width: 480px) {
+        .as-seen-in-logos {
+          animation: scroll 12s linear infinite;
+        }
+      }
 
       .as-seen-in-logo {
         filter: brightness(0) saturate(100%) invert(89%) sepia(8%) saturate(427%) hue-rotate(86deg) brightness(95%) contrast(89%) !important;
@@ -115,36 +165,6 @@ const AsSeenIn = () => {
     document.head.appendChild(style);
     return () => document.head.removeChild(style);
   }, []);
-
-  const reviewsSecStyles = {
-    textAlign: 'right',
-    color: '#FFFFFF',
-    minWidth: '200px',
-    flexShrink: 0
-  };
-
-  const h3Styles = {
-    fontSize: '36px',
-    fontWeight: 'bold',
-    margin: '0 0 5px 0',
-    color: '#FFFFFF'
-  };
-
-  const sec2ReviewsStyles = {
-    fontSize: '16px',
-    margin: '0 0 10px 0',
-    color: '#FFFFFF'
-  };
-
-  const greenpalReviewsStyles = {
-    display: 'flex',
-    justifyContent: 'flex-end'
-  };
-
-  const starImageStyles = {
-    height: '20px',
-    width: 'auto'
-  };
 
   const logos = [
     {
@@ -177,21 +197,21 @@ const AsSeenIn = () => {
   return (
     <div id="as-seen-in">
       <section style={sec2Styles}>
-        <div style={container2Styles}>
+        <div style={container2Styles} className="as-seen-in-container">
           <div style={sec2HeadingStyles}>
-            <h2 style={h2Styles}>As seen in...</h2>
+            <h2 style={h2Styles} className="as-seen-in-heading">As seen in...</h2>
           </div>
-          <div style={sliderMainStyles}>
-            <div style={logosListStyles}>
+          <div style={sliderMainStyles} className="as-seen-in-slider">
+            <div style={logosListStyles} className="as-seen-in-logos-container">
               <div style={priceSliderStyles}>
                 <div style={carouselStyles}>
                   <div style={slideDataStyles}>
                     <ul style={carouselTrackStyles} className="as-seen-in-logos">
                       {logos.map((logo, index) => (
-                        <li key={index} style={logoItemStyles}>
+                        <li key={index} style={logoItemStyles} className="as-seen-in-logo-item">
                           <img
-                            style={{ ...logoImageStyles }}
-                            className="as-seen-in-logo"
+                            style={logoImageStyles}
+                            className="as-seen-in-logo as-seen-in-logo-img"
                             loading="lazy"
                             alt={`${logo.name} logo`}
                             title={`${logo.name} logo`}
@@ -199,11 +219,12 @@ const AsSeenIn = () => {
                           />
                         </li>
                       ))}
+                      {/* Duplicate logos for seamless scrolling */}
                       {logos.map((logo, index) => (
-                        <li key={`duplicate-${index}`} style={logoItemStyles}>
+                        <li key={`duplicate-${index}`} style={logoItemStyles} className="as-seen-in-logo-item">
                           <img
-                            style={{ ...logoImageStyles }}
-                            className="as-seen-in-logo"
+                            style={logoImageStyles}
+                            className="as-seen-in-logo as-seen-in-logo-img"
                             loading="lazy"
                             alt={`${logo.name} logo`}
                             title={`${logo.name} logo`}
@@ -216,7 +237,7 @@ const AsSeenIn = () => {
                 </div>
               </div>
             </div>
-            <div style={reviewsSecStyles}>
+            <div style={reviewsSecStyles} className="as-seen-in-reviews">
               <h3 style={h3Styles}>4.9 / 5</h3>
               <p style={sec2ReviewsStyles}>4,276 reviews</p>
               <div style={greenpalReviewsStyles}>

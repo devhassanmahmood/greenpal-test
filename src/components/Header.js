@@ -9,6 +9,9 @@ import garyPointingLeftImage from '../assets/character.png';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,8 +19,21 @@ const Header = () => {
       setIsScrolled(scrollPosition > 50);
     };
 
+    const checkScreenSize = () => {
+      const width = window.innerWidth;
+      setIsMobile(width <= 768);
+      setIsTablet(width > 768 && width <= 1024);
+      setIsDesktop(width > 1024);
+    };
+
+    checkScreenSize();
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('resize', checkScreenSize);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', checkScreenSize);
+    };
   }, []);
 
   // Add CSS keyframes for header arrow animation
@@ -50,7 +66,7 @@ const Header = () => {
   const fixedStyles = {
     zIndex: 999,
     transition: 'linear 0.5s',
-    height: '63px',
+    height: isMobile ? '60px' : '63px',
     width: '100%',
     left: 0,
     position: 'fixed',
@@ -59,10 +75,10 @@ const Header = () => {
 
   const topBarStyles = {
     background: isScrolled ? '#3aa2e1' : 'transparent',
-    height: '63px',
+    height: isMobile ? '60px' : '63px',
     transition: 'linear 0.5s',
     overflow: 'hidden',
-    lineHeight: '2.8125rem',
+    lineHeight: isMobile ? '2.5rem' : '2.8125rem',
     position: 'relative',
     marginBottom: 0,
     width: '100%',
@@ -78,25 +94,29 @@ const Header = () => {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '3px 20px',
-    paddingTop: '12px',
-    paddingBottom: '12px',
-    width: '1168px'
+    padding: isMobile ? '3px 15px' : isTablet ? '3px 20px' : '3px 20px',
+    paddingTop: isMobile ? '8px' : '12px',
+    paddingBottom: isMobile ? '8px' : '12px',
+    width: isMobile ? '100%' : isTablet ? '90%' : '1168px',
+    maxWidth: '1168px'
   };
 
   const logoStyles = {
-    marginLeft: '8px'
+    marginLeft: isMobile ? '0' : '8px',
+    maxWidth: isMobile ? '120px' : 'auto',
+    height: 'auto'
   };
 
   const rightNavStyles = {
     padding: 0,
     height: 'auto',
-    fontSize: '16px',
+    fontSize: isMobile ? '14px' : '16px',
     lineHeight: '1.6',
     margin: 0,
     display: 'flex',
     justifyContent: 'flex-end',
-    gap: '15px'
+    gap: isMobile ? '10px' : '15px',
+    alignItems: 'center'
   };
 
   const testLiStyles = {
@@ -112,13 +132,13 @@ const Header = () => {
     backgroundPosition: 'right center',
     backgroundRepeat: 'no-repeat',
     color: '#fff',
-    padding: '8px',
+    padding: isMobile ? '6px 12px' : '8px',
     textAlign: 'center',
     backgroundImage: 'linear-gradient(0deg, #FF6F00 0%, #FF9B00 100%)',
     borderRadius: '24.5px',
-    width: '216px',
-    height: '40px',
-    fontSize: '18px',
+    width: isMobile ? '120px' : isTablet ? '150px' : '216px',
+    height: isMobile ? '35px' : '40px',
+    fontSize: isMobile ? '14px' : isTablet ? '16px' : '18px',
     top: 0,
     WebkitFontSmoothing: 'antialiased',
     MozOsxFontSmoothing: 'grayscale',
@@ -127,18 +147,19 @@ const Header = () => {
 
   const getStartedStyles = {
     color: '#fff',
-    fontSize: '18px',
-    paddingRight: '23px',
+    fontSize: isMobile ? '14px' : isTablet ? '16px' : '18px',
+    paddingRight: isMobile ? '10px' : '23px',
     lineHeight: '2',
     WebkitFontSmoothing: 'antialiased',
     MozOsxFontSmoothing: 'grayscale',
     textDecoration: 'none',
+    display: isMobile ? 'none' : 'block'
   };
 
   const headerFillStyles = {
     position: 'relative',
     width: '100%',
-    height: '670px',
+    height: isMobile ? '500px' : isTablet ? '600px' : '670px',
     overflow: 'hidden'
   };
 
@@ -164,13 +185,13 @@ const Header = () => {
     zIndex: 2,
     width: '100%',
     maxWidth: '100%',
-    padding: '0 20px',
+    padding: isMobile ? '0 15px' : isTablet ? '0 20px' : '0 20px',
     boxSizing: 'border-box'
   };
 
   const mainHeadingStyles = {
     color: '#FFFFFF',
-    width: '70%',
+    width: isMobile ? '90%' : isTablet ? '80%' : '70%',
     margin: '0 auto',
     WebkitFontSmoothing: 'antialiased',
     MozOsxFontSmoothing: 'grayscale',
@@ -178,39 +199,39 @@ const Header = () => {
 
   const h1Styles = {
     color: '#FFFFFF',
-    fontSize: '71px',
+    fontSize: isMobile ? '32px' : isTablet ? '48px' : '71px',
     fontWeight: 600,
-    lineHeight: '72px',
+    lineHeight: isMobile ? '36px' : isTablet ? '52px' : '72px',
     margin: '0 0 20px 0',
     letterSpacing: 'normal'
   };
 
   const locationServiceStyles = {
-    fontSize: '40px',
-    marginTop: '16px',
-    marginBottom: '25px',
+    fontSize: isMobile ? '20px' : isTablet ? '28px' : '40px',
+    marginTop: isMobile ? '10px' : isTablet ? '12px' : '16px',
+    marginBottom: isMobile ? '15px' : isTablet ? '20px' : '25px',
     WebkitFontSmoothing: 'antialiased',
     MozOsxFontSmoothing: 'grayscale',
     fontWeight: 800,
   };
 
   const addressVariantStyles = {
-    marginTop: '40px',
+    marginTop: isMobile ? '20px' : isTablet ? '30px' : '40px',
     width: '100%'
   };
 
   const lawnCareBannerInputHeadingStyles = {
-    marginBottom: '10px',
+    marginBottom: isMobile ? '15px' : '10px',
     width: '100%'
   };
 
   const addressFormStyles = {
-    width: '800px',
-    height: '70px',
-    borderRadius: '70px',
+    width: isMobile ? '90%' : isTablet ? '600px' : '800px',
+    height: isMobile ? '50px' : isTablet ? '60px' : '70px',
+    borderRadius: isMobile ? '50px' : isTablet ? '60px' : '70px',
     margin: '0 auto',
     border: '1px solid #FF9000',
-    paddingLeft: '30px',
+    paddingLeft: isMobile ? '20px' : isTablet ? '25px' : '30px',
     backgroundColor: '#fff',
     cursor: 'pointer',
     position: 'relative'
@@ -220,7 +241,7 @@ const Header = () => {
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    gap: '15px',
+    gap: isMobile ? '10px' : '15px',
     height: '100%'
   };
 
@@ -249,10 +270,10 @@ const Header = () => {
     width: '100%',
     border: 'none',
     outline: 'none',
-    fontSize: '16px',
+    fontSize: isMobile ? '14px' : isTablet ? '15px' : '16px',
     backgroundColor: 'transparent',
     color: '#333',
-    padding: '8px 0'
+    padding: isMobile ? '6px 0' : '8px 0'
   };
 
   const gpInputGroup1Styles = {
@@ -276,18 +297,18 @@ const Header = () => {
   };
 
   const submitButtonStyles = {
-    height: '71px',
-    width: '170px',
+    height: isMobile ? '51px' : isTablet ? '61px' : '71px',
+    width: isMobile ? '120px' : isTablet ? '140px' : '170px',
     backgroundColor: '#FF9000',
     color: '#FFFFFF',
-    fontSize: '20px',
-    lineHeight: '24px',
+    fontSize: isMobile ? '16px' : isTablet ? '18px' : '20px',
+    lineHeight: isMobile ? '20px' : isTablet ? '22px' : '24px',
     textAlign: 'center',
     border: '0',
     outline: 'none',
     backgroundImage: 'linear-gradient(0deg, #FF6F00 0%, #FF9B00 100%)',
-    borderRadius: '50px',
-    padding: '0 23px',
+    borderRadius: isMobile ? '50px' : isTablet ? '50px' : '50px',
+    padding: isMobile ? '0 15px' : isTablet ? '0 20px' : '0 23px',
     position: 'absolute',
     cursor: 'pointer',
     right: '0',
@@ -295,23 +316,23 @@ const Header = () => {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: '8px'
+    gap: isMobile ? '6px' : isTablet ? '7px' : '8px'
   };
 
   const btnTextStyles = {
     color: '#fff',
-    fontSize: '20px',
-    lineHeight: '24px'
+    fontSize: isMobile ? '16px' : isTablet ? '18px' : '20px',
+    lineHeight: isMobile ? '20px' : isTablet ? '22px' : '24px'
   };
 
   const arrowBtnStyles = {
-    height: '19px',
-    width: '11px'
+    height: isMobile ? '16px' : isTablet ? '18px' : '19px',
+    width: isMobile ? '9px' : isTablet ? '10px' : '11px'
   };
 
   const headerBottomStyles = {
     position: 'absolute',
-    bottom: '20px',
+    bottom: isMobile ? '15px' : '20px',
     left: '50%',
     transform: 'translateX(-50%)',
     zIndex: 2,
@@ -321,7 +342,7 @@ const Header = () => {
 
   const headerArrowStyles = {
     textAlign: 'center',
-    marginBottom: '20px'
+    marginBottom: isMobile ? '15px' : '20px'
   };
 
   const headerArrowAnimatedStyles = {
@@ -332,7 +353,7 @@ const Header = () => {
   };
 
   const headerArrowImgStyles = {
-    width: '30px',
+    width: isMobile ? '25px' : '30px',
     height: 'auto'
   };
 
@@ -343,38 +364,14 @@ const Header = () => {
   };
 
   const garyPointingLeftStyles = {
-    width: '274px',
+    width: isDesktop ? '274px' : '200px',
     height: 'auto',
     maxWidth: '100%',
     position: 'absolute',
-    top: '-210px',
-    right: '10%',
-    zIndex: 3
-  };
-
-  const getResponsiveGaryStyles = () => {
-    const screenWidth = window.innerWidth;
-    
-    if (screenWidth >= 1100) {
-      return {
-        ...garyPointingLeftStyles,
-        top: '-210px',
-        right: '8%',
-        width: '274px'
-      };
-    } else if (screenWidth >= 768) {
-      return {
-        ...garyPointingLeftStyles,
-        top: '-115px',
-        right: '5%',
-        width: '200px'
-      };
-    } else {
-      return {
-        ...garyPointingLeftStyles,
-        display: 'none'
-      };
-    }
+    top: isDesktop ? '-210px' : '-115px',
+    right: isDesktop ? '8%' : '5%',
+    zIndex: 3,
+    display: isDesktop ? 'block' : 'none' // Hide under 1024px
   };
 
   return (
@@ -441,9 +438,9 @@ const Header = () => {
                 <div style={{ position: 'relative', display: 'inline-block', textAlign: 'center', width: '100%' }}>
                   <p style={{ 
                     color: '#FF9000',   
-                    fontSize: '18px', 
+                    fontSize: isMobile ? '14px' : isTablet ? '16px' : '18px', 
                     fontWeight: '600', 
-                    lineHeight: '38px', 
+                    lineHeight: isMobile ? '32px' : isTablet ? '36px' : '38px', 
                     textAlign: 'center', 
                     margin: 0,
                     display: 'inline'
@@ -458,7 +455,7 @@ const Header = () => {
                       marginLeft: '5px',
                       top: '70%',
                       transform: 'translateY(-30%)',
-                      width: '10px',
+                      width: isMobile ? '8px' : isTablet ? '9px' : '10px',
                       height: 'auto'
                     }}
                   />
@@ -551,14 +548,14 @@ const Header = () => {
               alt="grass-cutting-businesses-in-Columbus-OH"
               title="local-lawn-and-landscape-maintenance-services-near-me-in-Columbus-OH"
               src={garyPointingLeftImage}
-              style={getResponsiveGaryStyles()}
+              style={garyPointingLeftStyles}
             />
             <noscript>
               <img
                 alt="grass-cutting-businesses-in-Columbus-OH"
                 title="local-lawn-and-landscape-maintenance-services-near-me-in-Columbus-OH"
                 src={garyPointingLeftImage}
-                style={getResponsiveGaryStyles()}
+                style={garyPointingLeftStyles}
               />
             </noscript>
           </div>
