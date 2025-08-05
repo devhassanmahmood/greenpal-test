@@ -26,12 +26,6 @@ body {
   background-color: #ffffff;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-  .App {
-    padding: 0 10px;
-  }
-}
 
 /* Smooth scrolling */
 html {
@@ -123,7 +117,7 @@ a:focus {
   }
 }
 
-/* Default link styles */
+
 a {
   color: #008cba;
   text-decoration: none !important;

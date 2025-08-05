@@ -13,11 +13,38 @@ const Header = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      setIsScrolled(scrollPosition > 100);
+      setIsScrolled(scrollPosition > 50);
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Add CSS keyframes for header arrow animation
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes header-arrow-bottom {
+        0% {
+          -webkit-transform: translateY(0);
+          transform: translateY(0);
+        }
+        50% {
+          -webkit-transform: translateY(-7px);
+          transform: translateY(-7px);
+        }
+        55% {
+          -webkit-transform: translateY(-7px);
+          transform: translateY(-7px);
+        }
+        100% {
+          -webkit-transform: translateY(0);
+          transform: translateY(0);
+        }
+      }
+    `;
+    document.head.appendChild(style);
+    return () => document.head.removeChild(style);
   }, []);
 
   const fixedStyles = {
@@ -31,7 +58,7 @@ const Header = () => {
   };
 
   const topBarStyles = {
-    background: 'transparent',
+    background: isScrolled ? '#3aa2e1' : 'transparent',
     height: '63px',
     transition: 'linear 0.5s',
     overflow: 'hidden',
@@ -41,8 +68,10 @@ const Header = () => {
     width: '100%',
     maxWidth: '100%',
     margin: '0 auto',
-    backgroundColor: isScrolled ? '#3aa2e1' : 'transparent',
-    boxShadow: isScrolled ? '0 2px 4px rgba(0,0,0,0.1)' : 'none'
+    boxShadow: isScrolled ? '0 2px 4px rgba(0,0,0,0.1)' : 'none',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
   };
 
   const titleAreaStyles = {
@@ -51,8 +80,7 @@ const Header = () => {
     alignItems: 'center',
     padding: '3px 20px',
     paddingTop: '12px',
-    maxWidth: '1168px',
-    margin: '0 auto'
+    width: '1168px'
   };
 
   const logoStyles = {
@@ -93,7 +121,8 @@ const Header = () => {
     top: 0,
     WebkitFontSmoothing: 'antialiased',
     MozOsxFontSmoothing: 'grayscale',
-    textDecoration: 'none'
+    textDecoration: 'none',
+    fontFamily: 'proxima_novasemibold'
   };
 
   const getStartedStyles = {
@@ -103,13 +132,14 @@ const Header = () => {
     lineHeight: '2',
     WebkitFontSmoothing: 'antialiased',
     MozOsxFontSmoothing: 'grayscale',
-    textDecoration: 'none'
+    textDecoration: 'none',
+    fontFamily: 'proxima_novasemibold'
   };
 
   const headerFillStyles = {
     position: 'relative',
     width: '100%',
-    height: 'calc(100vh - 63px)',
+    height: '670px',
     overflow: 'hidden'
   };
 
@@ -117,9 +147,9 @@ const Header = () => {
     width: '100%',
     height: '100%',
     objectFit: 'cover',
-    objectPosition: 'center top',
+    objectPosition: 'center',
     position: 'absolute',
-    top: '-210px',
+    top: 0,
     left: 0,
     zIndex: 1
   };
@@ -127,24 +157,25 @@ const Header = () => {
   const headerMsgStyles = {
     position: 'absolute',
     left: '50%',
-    top: '35%',
+    top: '50%',
     transform: 'translate(-50%, -50%)',
     WebkitTransform: 'translate(-50%, -50%)',
     color: '#fff',
     textAlign: 'center',
     zIndex: 2,
     width: '100%',
-    maxWidth: '800px',
+    maxWidth: '100%',
     padding: '0 20px',
     boxSizing: 'border-box'
   };
 
   const mainHeadingStyles = {
     color: '#FFFFFF',
-    width: '100%',
+    width: '70%',
     margin: '0 auto',
     WebkitFontSmoothing: 'antialiased',
-    MozOsxFontSmoothing: 'grayscale'
+    MozOsxFontSmoothing: 'grayscale',
+    fontFamily: 'Poppins'
   };
 
   const h1Styles = {
@@ -152,44 +183,48 @@ const Header = () => {
     fontSize: '71px',
     fontWeight: 600,
     lineHeight: '72px',
-    margin: '0 0 20px 0'
+    margin: '0 0 20px 0',
+    letterSpacing: 'normal'
   };
 
   const locationServiceStyles = {
     fontSize: '40px',
-    marginTop: '14px',
+    marginTop: '16px',
     marginBottom: '25px',
     WebkitFontSmoothing: 'antialiased',
-    MozOsxFontSmoothing: 'grayscale'
+    MozOsxFontSmoothing: 'grayscale',
+    fontWeight: 800,
   };
 
   const addressVariantStyles = {
-    marginTop: '30px',
+    marginTop: '40px',
     width: '100%'
   };
 
   const lawnCareBannerInputHeadingStyles = {
-    marginBottom: '15px',
+    marginBottom: '10px',
     width: '100%'
   };
 
   const addressFormStyles = {
     height: '70px',
-    border: '2px solid rgb(255, 144, 0)',
+    border: '2px solid #f68519',
     borderRadius: '35px',
-    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+    backgroundColor: '#f8f8f8',
     padding: '10px 20px',
     display: 'flex',
     alignItems: 'center',
     width: '100%',
     maxWidth: '600px',
-    margin: '0 auto'
+    margin: '0 auto',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
   };
 
   const formStyles = {
     width: '100%',
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    gap: '15px'
   };
 
   const checkAlignStyles = {
@@ -219,7 +254,8 @@ const Header = () => {
     outline: 'none',
     fontSize: '16px',
     backgroundColor: 'transparent',
-    color: '#333'
+    color: '#333',
+    padding: '8px 0'
   };
 
   const gpInputGroup1Styles = {
@@ -235,7 +271,6 @@ const Header = () => {
   };
 
   const gpInputGroupBtnStyles = {
-    marginLeft: '15px',
     flexShrink: 0
   };
 
@@ -253,8 +288,7 @@ const Header = () => {
     alignItems: 'center',
     gap: '8px',
     whiteSpace: 'nowrap',
-    filter: 'blur(0.5px)',
-    WebkitFilter: 'blur(0.5px)'
+    height: '50px'
   };
 
   const btnTextStyles = {
@@ -304,8 +338,8 @@ const Header = () => {
     height: 'auto',
     maxWidth: '100%',
     position: 'absolute',
-    top: '-74px',
-    left: '80%',
+    top: '-210px',
+    right: '10%',
     zIndex: 3
   };
 
@@ -315,21 +349,21 @@ const Header = () => {
     if (screenWidth >= 1100) {
       return {
         ...garyPointingLeftStyles,
-        top: '-420px',
-        left: '80%'
+        top: '-210px',
+        right: '8%',
+        width: '274px'
       };
     } else if (screenWidth >= 768) {
       return {
         ...garyPointingLeftStyles,
-        top: '-420px',
-        left: '75%'
+        top: '-115px',
+        right: '5%',
+        width: '200px'
       };
     } else {
       return {
         ...garyPointingLeftStyles,
-        top: '-420px',
-        left: '70%',
-        width: '200px'
+        display: 'none'
       };
     }
   };
@@ -340,7 +374,7 @@ const Header = () => {
         <nav style={topBarStyles}>
           <div style={titleAreaStyles}>
             <span style={{ flexShrink: 0 }}>
-              <a href="https://www.yourgreenpal.com/" style={{ textDecoration: 'none' }}>
+              <a href="#" style={{ textDecoration: 'none' }}>
                 <img
                   id="logo-image"
                   loading="lazy"
@@ -360,7 +394,7 @@ const Header = () => {
                       alt="lawn-care-services-and-maintenance"
                       loading="lazy"
                       src={arrowNextGeoImage}
-                      style={{ maxWidth: '100%', height: 'auto', display: 'inline', verticalAlign: 'baseline' }}
+                      style={{ maxWidth: '100%', height: 'auto', display: 'inline', verticalAlign: 'baseline', marginLeft: '5px' }}
                     />
                   </a>
                 </div>
@@ -395,14 +429,32 @@ const Header = () => {
           <div>
             <div style={addressVariantStyles}>
               <div style={lawnCareBannerInputHeadingStyles}>
-                <p style={{ color: '#fff', fontSize: '18px', margin: '0 0 15px 0' }}>
-                  Book your grass cutting in 60 seconds
+                <div style={{ position: 'relative', display: 'inline-block', textAlign: 'center', width: '100%' }}>
+                  <p style={{ 
+                    color: '#FF9000', 
+                    fontFamily: 'Poppins', 
+                    fontSize: '18px', 
+                    fontWeight: '600', 
+                    lineHeight: '38px', 
+                    textAlign: 'center', 
+                    margin: 0,
+                    display: 'inline'
+                  }}>
+                    Book your grass cutting in 60 seconds
+                  </p>
                   <img
                     alt="Orange Bottom Arrow"
                     src={orangeBottomArrowImage}
-                    style={{ display: 'none' }}
+                    style={{
+                      position: 'absolute',
+                      marginLeft: '5px',
+                      top: '70%',
+                      transform: 'translateY(-30%)',
+                      width: '10px',
+                      height: 'auto'
+                    }}
                   />
-                </p>
+                </div>
               </div>
 
               <div style={addressFormStyles}>
@@ -421,7 +473,7 @@ const Header = () => {
                               id="address-autocomplete"
                               autoComplete="off"
                               type="text"
-                              placeholder="Enter a location"
+                              placeholder="Enter your house address"
                               name="location"
                               style={inputStyles}
                             />
