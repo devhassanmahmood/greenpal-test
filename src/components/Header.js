@@ -12,6 +12,7 @@ const Header = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
+  const [screenWidth, setScreenWidth] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,6 +22,7 @@ const Header = () => {
 
     const checkScreenSize = () => {
       const width = window.innerWidth;
+      setScreenWidth(width);
       setIsMobile(width <= 768);
       setIsTablet(width > 768 && width <= 1024);
       setIsDesktop(width > 1024);
@@ -225,8 +227,22 @@ const Header = () => {
     width: '100%'
   };
 
+  const getSearchBarWidth = () => {
+    if (isMobile) {
+      return '90%';
+    } else if (screenWidth >= 1600) {
+      return '800px';
+    } else if (screenWidth >= 1500) {
+      return '700px';
+    } else if (screenWidth <= 1250) {
+      return '500px';
+    } else {
+      return '600px';
+    }
+  };
+
   const addressFormStyles = {
-    width: isMobile ? '90%' : isTablet ? '600px' : '800px',
+    width: getSearchBarWidth(),
     height: isMobile ? '50px' : isTablet ? '60px' : '70px',
     borderRadius: isMobile ? '50px' : isTablet ? '60px' : '70px',
     margin: '0 auto',
@@ -234,7 +250,8 @@ const Header = () => {
     paddingLeft: isMobile ? '20px' : isTablet ? '25px' : '30px',
     backgroundColor: '#fff',
     cursor: 'pointer',
-    position: 'relative'
+    position: 'relative',
+    transition: 'width 0.3s ease, height 0.3s ease'
   };
 
   const formStyles = {
@@ -364,14 +381,14 @@ const Header = () => {
   };
 
   const garyPointingLeftStyles = {
-    width: isDesktop ? '274px' : '200px',
+    width: screenWidth >= 1250 ? '274px' : '200px',
     height: 'auto',
     maxWidth: '100%',
     position: 'absolute',
-    top: isDesktop ? '-210px' : '-115px',
-    right: isDesktop ? '8%' : '5%',
+    top: screenWidth >= 1250 ? '-210px' : '-115px',
+    right: screenWidth >= 1250 ? '8%' : '5%',
     zIndex: 3,
-    display: isDesktop ? 'block' : 'none' // Hide under 1024px
+    display: screenWidth >= 1250 ? 'block' : 'none' // Hide under 1250px
   };
 
   return (
