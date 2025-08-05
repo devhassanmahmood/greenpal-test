@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Header from './components/Header';
+import AsSeenIn from './components/AsSeenIn';
 import Reviews from './components/Reviews';
 import ServiceProviders from './components/ServiceProviders';
 import HowItWorks from './components/HowItWorks';
@@ -10,6 +11,7 @@ function App() {
   return (
     <div className="App">
       <Header />
+      <AsSeenIn />
       <Reviews />
       <ServiceProviders />
       <HowItWorks />

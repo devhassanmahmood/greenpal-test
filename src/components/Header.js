@@ -80,6 +80,7 @@ const Header = () => {
     alignItems: 'center',
     padding: '3px 20px',
     paddingTop: '12px',
+    paddingBottom: '12px',
     width: '1168px'
   };
 
@@ -122,7 +123,6 @@ const Header = () => {
     WebkitFontSmoothing: 'antialiased',
     MozOsxFontSmoothing: 'grayscale',
     textDecoration: 'none',
-    fontFamily: 'proxima_novasemibold'
   };
 
   const getStartedStyles = {
@@ -133,7 +133,6 @@ const Header = () => {
     WebkitFontSmoothing: 'antialiased',
     MozOsxFontSmoothing: 'grayscale',
     textDecoration: 'none',
-    fontFamily: 'proxima_novasemibold'
   };
 
   const headerFillStyles = {
@@ -175,7 +174,6 @@ const Header = () => {
     margin: '0 auto',
     WebkitFontSmoothing: 'antialiased',
     MozOsxFontSmoothing: 'grayscale',
-    fontFamily: 'Poppins'
   };
 
   const h1Styles = {
@@ -207,24 +205,23 @@ const Header = () => {
   };
 
   const addressFormStyles = {
+    width: '800px',
     height: '70px',
-    border: '2px solid #f68519',
-    borderRadius: '35px',
-    backgroundColor: '#f8f8f8',
-    padding: '10px 20px',
-    display: 'flex',
-    alignItems: 'center',
-    width: '100%',
-    maxWidth: '600px',
+    borderRadius: '70px',
     margin: '0 auto',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+    border: '1px solid #FF9000',
+    paddingLeft: '30px',
+    backgroundColor: '#fff',
+    cursor: 'pointer',
+    position: 'relative'
   };
 
   const formStyles = {
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    gap: '15px'
+    gap: '15px',
+    height: '100%'
   };
 
   const checkAlignStyles = {
@@ -271,28 +268,40 @@ const Header = () => {
   };
 
   const gpInputGroupBtnStyles = {
-    flexShrink: 0
+    flexShrink: 0,
+    position: 'absolute',
+    right: '0',
+    top: '0',
+    height: '100%'
   };
 
   const submitButtonStyles = {
-    backgroundColor: '#f68519',
+    height: '71px',
+    width: '170px',
+    backgroundColor: '#FF9000',
+    color: '#FFFFFF',
+    fontSize: '20px',
+    lineHeight: '24px',
+    textAlign: 'center',
+    border: '0',
+    outline: 'none',
     backgroundImage: 'linear-gradient(0deg, #FF6F00 0%, #FF9B00 100%)',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '25px',
-    padding: '12px 25px',
-    fontSize: '16px',
-    fontWeight: 'bold',
+    borderRadius: '50px',
+    padding: '0 23px',
+    position: 'absolute',
     cursor: 'pointer',
+    right: '0',
+    top: '0',
     display: 'flex',
     alignItems: 'center',
-    gap: '8px',
-    whiteSpace: 'nowrap',
-    height: '50px'
+    justifyContent: 'center',
+    gap: '8px'
   };
 
   const btnTextStyles = {
-    color: '#fff'
+    color: '#fff',
+    fontSize: '20px',
+    lineHeight: '24px'
   };
 
   const arrowBtnStyles = {
@@ -431,8 +440,7 @@ const Header = () => {
               <div style={lawnCareBannerInputHeadingStyles}>
                 <div style={{ position: 'relative', display: 'inline-block', textAlign: 'center', width: '100%' }}>
                   <p style={{ 
-                    color: '#FF9000', 
-                    fontFamily: 'Poppins', 
+                    color: '#FF9000',   
                     fontSize: '18px', 
                     fontWeight: '600', 
                     lineHeight: '38px', 
