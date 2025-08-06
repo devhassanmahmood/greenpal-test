@@ -26,6 +26,13 @@ const SeePricesButton = ({
           height: '52px',
           borderRadius: '26px'
         };
+      case 'xl':
+          return {
+            padding: '18px 80px',
+            fontSize: '24px',
+            height: '52px',
+            borderRadius: '26px'
+          };
       default:
         return {
           padding: '10px 20px',

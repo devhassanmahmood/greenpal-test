@@ -34,8 +34,8 @@ const Footer = () => {
       backgroundRepeat: 'no-repeat'
     },
     container: {
-      maxWidth: '1200px',
-      margin: '0 auto',
+    maxWidth: '1200px',
+    margin: '0 auto',
       padding: isMobile ? '0 20px' : '0 90px',
       position: 'relative',
       zIndex: 1
@@ -119,7 +119,7 @@ const Footer = () => {
     },
     sectionTitle: {
       fontSize: isMobile ? '16px' : '18px',
-      fontWeight: '600',
+    fontWeight: '600',
       color: '#ffffff',
       marginBottom: isMobile ? '10px' : '15px',
       textAlign: isMobile ? 'center' : 'left'
@@ -134,7 +134,7 @@ const Footer = () => {
     },
     link: {
       color: '#e2e8f0',
-      textDecoration: 'none',
+    textDecoration: 'none',
       fontSize: isMobile ? '13px' : '14px',
       transition: 'color 0.3s ease',
       cursor: 'pointer',
@@ -166,7 +166,7 @@ const Footer = () => {
       fontSize: isMobile ? '14px' : '16px'
     },
     satisfactionBadge: {
-      display: 'flex',
+    display: 'flex',
       alignItems: 'center',
       gap: isMobile ? '10px' : '15px',
       marginTop: isMobile ? '15px' : '20px',
@@ -182,7 +182,7 @@ const Footer = () => {
       height: isMobile ? '40px' : '50px',
       backgroundColor: '#4a90e2',
       borderRadius: '50%',
-      display: 'flex',
+    display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       fontSize: isMobile ? '20px' : '24px',
@@ -200,7 +200,7 @@ const Footer = () => {
       marginBottom: isMobile ? '20px' : '30px'
     },
     locationsText: {
-      color: '#cbd5e0',
+    color: '#cbd5e0',
       fontSize: isMobile ? '12px' : '14px',
       lineHeight: isMobile ? '1.4' : '1.5',
       textAlign: isMobile ? 'center' : 'left'
@@ -208,24 +208,24 @@ const Footer = () => {
     bottomSection: {
       borderTop: '1px solid rgba(255,255,255,0.2)',
       paddingTop: isMobile ? '15px' : '20px',
-      display: 'flex',
+    display: 'flex',
       justifyContent: isMobile ? 'center' : 'space-between',
-      alignItems: 'center',
-      flexWrap: 'wrap',
+    alignItems: 'center',
+    flexWrap: 'wrap',
       gap: isMobile ? '15px' : '20px',
       flexDirection: isMobile ? 'column' : 'row'
     },
     bottomLinks: {
-      display: 'flex',
+    display: 'flex',
       gap: isMobile ? '15px' : '20px',
       flexWrap: 'wrap',
       justifyContent: isMobile ? 'center' : 'flex-start'
     },
     bottomLink: {
       color: '#e2e8f0',
-      textDecoration: 'none',
+    textDecoration: 'none',
       fontSize: isMobile ? '13px' : '14px',
-      transition: 'color 0.3s ease',
+    transition: 'color 0.3s ease',
       textAlign: isMobile ? 'center' : 'left'
     },
     copyright: {
@@ -261,8 +261,8 @@ const Footer = () => {
                     title="the-yard-cutting-businesses-in-Columbus-OH"
                     src={logoImage}
                     style={logoStyles}
-                  />
-                </a>
+                />
+              </a>
               </span>
             </div>
             <div style={styles.description}>
@@ -332,8 +332,8 @@ const Footer = () => {
                 <li><a href="/welcome-vendor" target="_blank" rel="noopener" style={styles.link}>Apply to be a GreenPal Vendor</a></li>
                 <li><a href="https://www.yourgreenpal.com/guides" target="_blank" rel="noopener" style={styles.link}>Free Lawn Business Guides</a></li>
               </ul>
-            </div>
-            
+          </div>
+
             <div style={styles.linksColumn}>
               <div style={styles.sectionTitle}>Connect with us</div>
               <div style={styles.socialIcons}>
@@ -342,7 +342,7 @@ const Footer = () => {
                 <a href="https://www.pinterest.com/yourgreenpal/" target="_blank" rel="noopener" style={styles.socialIcon}>P</a>
                 <a href="https://www.instagram.com/yourgreenpal/" target="_blank" rel="noopener" style={styles.socialIcon}>📷</a>
               </div>
-            </div>
+          </div>
 
             <div style={styles.satisfactionBadge}>
               <div style={styles.badgeIcon}>👍</div>
