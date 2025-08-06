@@ -33,7 +33,7 @@ const HowItWorks = () => {
 
   const stepsContainerStyles = {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
     gap: '40px',
     marginBottom: '60px'
   };

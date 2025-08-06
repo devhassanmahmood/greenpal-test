@@ -38,7 +38,16 @@ const Header = () => {
     };
   }, []);
 
-  // Add CSS keyframes for header arrow animation
+  const scrollToSecondSection = () => {
+    const secondSection = document.getElementById('as-seen-in');
+    if (secondSection) {
+      secondSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   useEffect(() => {
     const style = document.createElement('style');
     style.textContent = `
@@ -48,7 +57,7 @@ const Header = () => {
           transform: translateY(0);
         }
         50% {
-          -webkit-transform: translateY(-7px);
+          -webkit-transform: translateY(-7px);image.png
           transform: translateY(-7px);
         }
         55% {
@@ -84,7 +93,7 @@ const Header = () => {
     position: 'relative',
     marginBottom: 0,
     width: '100%',
-    maxWidth: '100%',
+    maxWidth: screenWidth <= 430 ? '320px' : screenWidth <= 768 ? '100%' : '100%',
     margin: '0 auto',
     boxShadow: isScrolled ? '0 2px 4px rgba(0,0,0,0.1)' : 'none',
     display: 'flex',
@@ -96,28 +105,27 @@ const Header = () => {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: isMobile ? '3px 15px' : isTablet ? '3px 20px' : '3px 20px',
-    paddingTop: isMobile ? '8px' : '12px',
-    paddingBottom: isMobile ? '8px' : '12px',
+    padding: '3px 20px',
+    paddingTop: screenWidth >= 768 ? '12px' : '3px',
     width: isMobile ? '100%' : isTablet ? '90%' : '1168px',
-    maxWidth: '1168px'
+    maxWidth: screenWidth <= 430 ? '320px' : screenWidth <= 768 ? '100%' : '1168px'
   };
 
   const logoStyles = {
-    marginLeft: isMobile ? '0' : '8px',
-    maxWidth: isMobile ? '120px' : 'auto',
-    height: 'auto'
+    marginLeft: screenWidth >= 300 && screenWidth <= 440 ? '-2px' : isMobile ? '0' : '8px',
+    width: screenWidth >= 300 && screenWidth <= 440 ? '117px' : 'auto',
+    height: 'auto',
+    flexShrink: isMobile ? 'auto' : 0
   };
 
   const rightNavStyles = {
     padding: 0,
     height: 'auto',
-    fontSize: isMobile ? '14px' : '16px',
+    fontSize: '16px',
     lineHeight: '1.6',
     margin: 0,
     display: 'flex',
     justifyContent: 'flex-end',
-    gap: isMobile ? '10px' : '15px',
     alignItems: 'center'
   };
 
@@ -134,23 +142,25 @@ const Header = () => {
     backgroundPosition: 'right center',
     backgroundRepeat: 'no-repeat',
     color: '#fff',
-    padding: isMobile ? '6px 12px' : '8px',
+    padding: screenWidth >= 300 && screenWidth <= 375 ? '5px' : screenWidth >= 376 && screenWidth <= 767 ? '5px' : screenWidth <= 365 ? '7px' : '8px',
     textAlign: 'center',
     backgroundImage: 'linear-gradient(0deg, #FF6F00 0%, #FF9B00 100%)',
-    borderRadius: '24.5px',
-    width: isMobile ? '120px' : isTablet ? '150px' : '216px',
-    height: isMobile ? '35px' : '40px',
-    fontSize: isMobile ? '14px' : isTablet ? '16px' : '18px',
+    borderRadius: screenWidth >= 300 && screenWidth <= 568 ? '18px' : '24.5px',
+    width: screenWidth <= 365 ? '110px' : screenWidth >= 300 && screenWidth <= 568 ? '135px' : '216px',
+    height: screenWidth >= 300 && screenWidth <= 568 ? '33px' : '40px',
+    fontSize: screenWidth <= 365 ? '14px' : screenWidth >= 300 && screenWidth <= 375 ? '14px' : screenWidth >= 376 && screenWidth <= 767 ? '18px' : screenWidth >= 300 && screenWidth <= 568 ? '15px' : '18px',
     top: 0,
     WebkitFontSmoothing: 'antialiased',
     MozOsxFontSmoothing: 'grayscale',
     textDecoration: 'none',
+    position: screenWidth <= 768 ? 'relative' : 'static',
+    lineHeight: screenWidth <= 768 ? 'normal' : 'inherit'
   };
 
   const getStartedStyles = {
     color: '#fff',
-    fontSize: isMobile ? '14px' : isTablet ? '16px' : '18px',
-    paddingRight: isMobile ? '10px' : '23px',
+    fontSize: '18px',
+    paddingRight: '23px',
     lineHeight: '2',
     WebkitFontSmoothing: 'antialiased',
     MozOsxFontSmoothing: 'grayscale',
@@ -243,28 +253,32 @@ const Header = () => {
 
   const addressFormStyles = {
     width: getSearchBarWidth(),
-    height: isMobile ? '50px' : isTablet ? '60px' : '70px',
+    height: isMobile ? 'auto' : isTablet ? '60px' : '70px',
     borderRadius: isMobile ? '50px' : isTablet ? '60px' : '70px',
     margin: '0 auto',
-    border: '1px solid #FF9000',
-    paddingLeft: isMobile ? '20px' : isTablet ? '25px' : '30px',
-    backgroundColor: '#fff',
+    border: isMobile ? 'none' : '1px solid #FF9000',
+    paddingLeft: isMobile ? '0' : isTablet ? '25px' : '30px',
+    backgroundColor: isMobile ? 'transparent' : '#fff',
     cursor: 'pointer',
     position: 'relative',
-    transition: 'width 0.3s ease, height 0.3s ease'
+    transition: 'width 0.3s ease, height 0.3s ease',
+    display: 'flex',
+    flexDirection: isMobile ? 'column' : 'row'
   };
 
   const formStyles = {
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    gap: isMobile ? '10px' : '15px',
-    height: '100%'
+    gap: isMobile ? '0' : '15px',
+    height: isMobile ? 'auto' : '100%',
+    flexDirection: isMobile ? 'column' : 'row'
   };
 
   const checkAlignStyles = {
     position: 'relative',
-    flex: 1
+    flex: 1,
+    width: isMobile ? '100%' : 'auto'
   };
 
   const googlePlaceAutocompleteStyles = {
@@ -285,12 +299,15 @@ const Header = () => {
 
   const inputStyles = {
     width: '100%',
-    border: 'none',
+    border: isMobile ? '1px solid #FF9000' : 'none',
     outline: 'none',
     fontSize: isMobile ? '14px' : isTablet ? '15px' : '16px',
-    backgroundColor: 'transparent',
+    marginBottom: isMobile ? '8px' : '0',
+    backgroundColor: isMobile ? '#fff' : 'transparent',
     color: '#333',
-    padding: isMobile ? '6px 0' : '8px 0'
+    padding: isMobile ? '15px 20px' : isTablet ? '6px 0' : '8px 0',
+    borderRadius: isMobile ? '50px' : '0',
+    boxSizing: 'border-box'
   };
 
   const gpInputGroup1Styles = {
@@ -307,29 +324,30 @@ const Header = () => {
 
   const gpInputGroupBtnStyles = {
     flexShrink: 0,
-    position: 'absolute',
-    right: '0',
-    top: '0',
-    height: '100%'
+    position: isMobile ? 'static' : 'absolute',
+    right: isMobile ? 'auto' : '0',
+    top: isMobile ? 'auto' : '0',
+    height: isMobile ? 'auto' : '100%',
+    width: isMobile ? '100%' : 'auto'
   };
 
   const submitButtonStyles = {
     height: isMobile ? '51px' : isTablet ? '61px' : '71px',
-    width: isMobile ? '120px' : isTablet ? '140px' : '170px',
+    width: isMobile ? '100%' : isTablet ? '140px' : '170px',
     backgroundColor: '#FF9000',
     color: '#FFFFFF',
     fontSize: isMobile ? '16px' : isTablet ? '18px' : '20px',
     lineHeight: isMobile ? '20px' : isTablet ? '22px' : '24px',
     textAlign: 'center',
-    border: '0',
+    border: isMobile ? '1px solid #FF9000' : '0',
     outline: 'none',
     backgroundImage: 'linear-gradient(0deg, #FF6F00 0%, #FF9B00 100%)',
     borderRadius: isMobile ? '50px' : isTablet ? '50px' : '50px',
     padding: isMobile ? '0 15px' : isTablet ? '0 20px' : '0 23px',
-    position: 'absolute',
+    position: isMobile ? 'static' : 'absolute',
     cursor: 'pointer',
-    right: '0',
-    top: '0',
+    right: isMobile ? 'auto' : '0',
+    top: isMobile ? 'auto' : '0',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -556,7 +574,10 @@ const Header = () => {
         </div>
         <div style={headerBottomStyles}>
           <div id="scroll-btn" style={headerArrowStyles}>
-            <div style={headerArrowAnimatedStyles}>
+            <div 
+              style={headerArrowAnimatedStyles}
+              onClick={scrollToSecondSection}
+            >
               <img alt="Header Arrow" src={downArrowImage} style={headerArrowImgStyles} />
             </div>
           </div>
