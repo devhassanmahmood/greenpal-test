@@ -93,7 +93,7 @@ const Header = () => {
     position: 'relative',
     marginBottom: 0,
     width: '100%',
-    maxWidth: screenWidth <= 430 ? '320px' : screenWidth <= 768 ? '100%' : '100%',
+    maxWidth: screenWidth <= 430 ? '100%' : screenWidth <= 768 ? '100%' : '100%',
     margin: '0 auto',
     boxShadow: isScrolled ? '0 2px 4px rgba(0,0,0,0.1)' : 'none',
     display: 'flex',

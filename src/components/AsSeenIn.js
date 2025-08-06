@@ -3,10 +3,12 @@ import React, { useState, useEffect } from 'react';
 const AsSeenIn = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
+  const [screenWidth, setScreenWidth] = useState(0);
 
   useEffect(() => {
     const checkScreenSize = () => {
       const width = window.innerWidth;
+      setScreenWidth(width);
       setIsMobile(width <= 480);
       setIsTablet(width > 480 && width <= 768);
     };
@@ -19,7 +21,7 @@ const AsSeenIn = () => {
   const sec2Styles = {
     background: 'linear-gradient(90deg, #00b45e 0%, #00ad50 30%, #009858 100%)',
     maxWidth: '100%',
-    paddingBottom: isMobile ? '30px' : isTablet ? '35px' : '42px',
+    paddingBottom: '22px',
     display: 'flex',
     position: 'relative'
   };
@@ -33,7 +35,7 @@ const AsSeenIn = () => {
 
   const sec2HeadingStyles = {
     textAlign: 'center',
-    marginBottom: isMobile ? '15px' : isTablet ? '20px' : '20px'
+    marginBottom: isMobile ? '5px' : isTablet ? '0px' : '0px'
   };
 
   const h2Styles = {
@@ -51,16 +53,20 @@ const AsSeenIn = () => {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    flexWrap: isMobile || isTablet ? 'wrap' : 'nowrap',
+    flexWrap: screenWidth <= 1024 ? 'wrap' : 'nowrap',
     gap: isMobile ? '20px' : isTablet ? '25px' : '20px',
-    flexDirection: isMobile || isTablet ? 'column' : 'row'
+    flexDirection: screenWidth <= 1024 ? 'column' : 'row',
+    position: 'relative',
+    width: '100%'
   };
 
   const logosListStyles = {
     flex: isMobile || isTablet ? 'none' : 1,
-    maxWidth: isMobile || isTablet ? '100%' : '60%',
+    maxWidth: isMobile || isTablet ? '100%' : '80%',
     minWidth: isMobile ? 'auto' : isTablet ? 'auto' : '300px',
-    order: isMobile || isTablet ? 1 : 'unset'
+    order: isMobile || isTablet ? 1 : 'unset',
+    position: 'relative',
+    overflow: 'hidden'
   };
 
   const priceSliderStyles = {
@@ -70,11 +76,13 @@ const AsSeenIn = () => {
   };
 
   const carouselStyles = {
-    position: 'relative'
+    position: 'relative',
+    width: '100%'
   };
 
   const slideDataStyles = {
-    overflow: 'hidden'
+    overflow: 'hidden',
+    width: '100%'
   };
 
   const carouselTrackStyles = {
@@ -83,7 +91,9 @@ const AsSeenIn = () => {
     margin: 0,
     padding: 0,
     animation: 'scroll 20s linear infinite',
-    width: 'fit-content'
+    width: 'fit-content',
+    flexWrap: 'nowrap',
+    alignItems: 'center'
   };
 
   const logoItemStyles = {
@@ -92,35 +102,53 @@ const AsSeenIn = () => {
     alignItems: 'center',
     justifyContent: 'center',
     minWidth: isMobile ? '70px' : isTablet ? '85px' : '98px',
-    height: isMobile ? '35px' : isTablet ? '45px' : '50px'
+    height: isMobile ? '35px' : isTablet ? '45px' : '50px',
+    flexShrink: 0
   };
 
   const logoImageStyles = {
     height: 'auto',
     maxHeight: isMobile ? '35px' : isTablet ? '45px' : '50px',
     width: isMobile ? '70px' : isTablet ? '85px' : '98px',
-    objectFit: 'contain'
+    objectFit: 'contain',
+    flexShrink: 0
   };
 
   const reviewsSecStyles = {
-    textAlign: isMobile || isTablet ? 'center' : 'right',
+    textAlign: 'right',
     color: '#FFFFFF',
     minWidth: isMobile || isTablet ? 'auto' : '200px',
     flexShrink: 0,
-    order: isMobile || isTablet ? 2 : 'unset'
+    order: isMobile || isTablet ? 2 : 'unset',
+    marginTop: screenWidth > 1024 ? '-25px' : '0',
+    display: isMobile ? 'flex' : 'block',
+    flexDirection: isMobile ? 'row' : 'column',
+    justifyContent: isMobile ? 'center' : 'flex-end',
+    alignItems: isMobile ? 'end' : 'flex-end'
   };
 
   const h3Styles = {
-    fontSize: isMobile ? '28px' : isTablet ? '32px' : '36px',
-    fontWeight: 'bold',
-    margin: '0 0 5px 0',
-    color: '#FFFFFF'
+    fontSize: '30px',
+    fontWeight: '700',
+    lineHeight: '36px',
+    color: '#FFFFFF',
+    opacity: 0.9,
+    margin: 0,
+    fontFamily: 'Poppins',
+    WebkitFontSmoothing: 'antialiased',
+    MozOsxFontSmoothing: 'grayscale'
   };
 
   const sec2ReviewsStyles = {
-    fontSize: isMobile ? '14px' : isTablet ? '15px' : '16px',
-    margin: '0 0 10px 0',
-    color: '#FFFFFF'
+    fontSize: '17px',
+    color: '#FFFFFF',
+    fontWeight: '500',
+    lineHeight: '24px',
+    margin: 0,
+    marginTop: '-3px',
+    fontFamily: 'Poppins',
+    WebkitFontSmoothing: 'antialiased',
+    MozOsxFontSmoothing: 'grayscale'
   };
 
   const greenpalReviewsStyles = {
@@ -133,7 +161,36 @@ const AsSeenIn = () => {
     width: 'auto'
   };
 
-  // Add CSS for logo color and animation
+  // Vertical line styles for desktop (above 1024px) - positioned for reviews section
+  const verticalLineStyles = {
+    position: 'relative',
+    right: '26px',
+    backgroundColor: '#FFFFFF',
+    opacity: 0.2,
+    width: '2px',
+    height: '95px',
+    display: screenWidth > 1024 ? 'block' : 'none',
+    float: 'left',
+    content: '""'
+  };
+
+  const horizontalLineStyles = {
+    position: 'relative',
+    top: '18px',
+    width: '100%',
+    margin: '0 auto',
+    color: '#D8D8D8',
+    opacity: 0.16,
+    height: '1px',
+    clear: 'both',
+    marginBottom: '20px',
+    display: screenWidth <= 1024 ? 'block' : 'none',
+    backgroundColor: '#D8D8D8',
+    border: 'none',
+    marginTop: '20px',
+    justifyContent: 'center'
+  };
+
   useEffect(() => {
     const style = document.createElement('style');
     style.textContent = `
@@ -160,6 +217,19 @@ const AsSeenIn = () => {
 
       .as-seen-in-logo {
         filter: brightness(0) saturate(100%) invert(89%) sepia(8%) saturate(427%) hue-rotate(86deg) brightness(95%) contrast(89%) !important;
+      }
+      
+      .as-seen-in-logos {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        align-items: center !important;
+      }
+      
+      .as-seen-in-logo-item {
+        flex-shrink: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
       }
     `;
     document.head.appendChild(style);
@@ -236,10 +306,13 @@ const AsSeenIn = () => {
                   </div>
                 </div>
               </div>
+              <hr style={horizontalLineStyles} className="hr-style" />
             </div>
-            <div style={reviewsSecStyles} className="as-seen-in-reviews">
-              <h3 style={h3Styles}>4.9 / 5</h3>
-              <p style={sec2ReviewsStyles}>4,276 reviews</p>
+            <div style={reviewsSecStyles} className="as-seen-in-reviews reviews_sec">
+              {/* Vertical line for reviews section (desktop) */}
+              <div style={verticalLineStyles}></div>
+              <h3 style={h3Styles}>4.8/5</h3>
+              <p style={sec2ReviewsStyles} className="sec2_reviews">4,276 reviews</p>
               <div style={greenpalReviewsStyles}>
                 <img
                   loading="lazy"
