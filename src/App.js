@@ -29,7 +29,7 @@ function App() {
       <ServiceProcess />
       <RecentLawns />
       <GreenPalInfo />
-      <Leaderboard />
+      {/* <Leaderboard /> */}
       <About />
       <Reviews />
       <PromotionalSection />
