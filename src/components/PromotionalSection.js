@@ -112,7 +112,7 @@ const PromotionalSection = () => {
       paddingBottom: isMobile ? '40px' : '60px'
     },
     section2Heading: {
-      fontSize: isMobile ? '24px' : '35px',
+      fontSize: isMobile ? '24px' : '40px',
       fontWeight: '650',
       color: '#e2e8f0',
       lineHeight: isMobile ? '1.2' : '1.25',
@@ -293,11 +293,11 @@ const PromotionalSection = () => {
         <div style={styles.section2Content}>
           {/* Content below the video */}
           <h2 style={styles.section2Heading}>
-            Tired of unreliable lawn services? So are we... See how it works
+            Tired of unreliable lawn services? So are we... See how it works grass-cuttng-business-in-Columbus-OH
           </h2>
-          <p style={styles.section2Paragraph}>
+          {isMobile && ( <p style={styles.section2Paragraph}>
             Save Time, Save Money, Book a great local landscaping service in Columbus now with GreenPal.
-          </p>
+          </p> ) }
           
           {/* Click here to watch text with arrow - Mobile only */}
           {isMobile && (
