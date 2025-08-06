@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import LawnProCard from './LawnProCard';
+import LawnProCardNew from './LawnProCardNew';
 
-const LawnProsCarousel = () => {
+const LawnProsSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
-  const [cardWidth, setCardWidth] = useState(300);
+  const [cardWidth, setCardWidth] = useState(400);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedRadius, setSelectedRadius] = useState('3');
   const carouselRef = useRef(null);
 
   useEffect(() => {
@@ -18,7 +20,7 @@ const LawnProsCarousel = () => {
       
       // Calculate card width based on screen size
       if (width <= 768) {
-        setCardWidth(250);
+        setCardWidth(300);
       } else if (width > 768 && width <= 1024) {
         setCardWidth(320);
       } else {
@@ -36,7 +38,6 @@ const LawnProsCarousel = () => {
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
-  // Touch handlers for mobile swipe
   const handleTouchStart = (e) => {
     if (isMobile) {
       setTouchStart(e.targetTouches[0].clientX);
@@ -53,7 +54,7 @@ const LawnProsCarousel = () => {
     if (!isMobile || !touchStart || !touchEnd) return;
     
     const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > 30; // Reduced threshold for easier swiping
+    const isLeftSwipe = distance > 30;
     const isRightSwipe = distance < -30;
 
     if (isLeftSwipe) {
@@ -71,6 +72,7 @@ const LawnProsCarousel = () => {
     position: 'relative',
     marginTop: '0',
     width: '100%',
+    backgroundColor: '#E5F6FD',
     zIndex: 2
   };
 
@@ -82,13 +84,101 @@ const LawnProsCarousel = () => {
 
   const headerStyles = {
     textAlign: 'center',
-    marginBottom: '10px'
+    marginBottom: '30px'
   };
 
   const titleStyles = {
     fontSize: isMobile ? '28px' : '36px',
     fontWeight: '700',
-    color: '#ffffff',
+    color: '#333333',
+    marginBottom: '10px',
+    fontFamily: 'Poppins, sans-serif'
+  };
+
+  const subtitleStyles = {
+    fontSize: '16px',
+    color: '#666666',
+    textAlign: 'center',
+    marginBottom: '40px',
+    fontFamily: 'Poppins, sans-serif'
+  };
+
+  const searchContainerStyles = {
+    display: 'flex',
+    gap: '15px',
+    marginBottom: '20px',
+    flexDirection: isMobile ? 'column' : 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    maxWidth: '800px',
+    margin: '0 auto 20px'
+  };
+
+  const searchBarStyles = {
+    position: 'relative',
+    flex: isMobile ? '1' : '0 0 450px',
+    maxWidth: isMobile ? '100%' : '450px'
+  };
+
+  const searchInputStyles = {
+    width: '100%',
+    padding: '12px 16px 12px 45px',
+    border: '1px solid #d1d5db',
+    borderRadius: '8px',
+    fontSize: '14px',
+    fontFamily: 'Poppins, sans-serif',
+    outline: 'none',
+    transition: 'border-color 0.3s ease',
+    backgroundColor: '#E5F6FD',
+    boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+  };
+
+  const searchIconStyles = {
+    position: 'absolute',
+    left: '16px',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    color: '#666666',
+    fontSize: '16px',
+    width: '16px',
+    height: '16px'
+  };
+
+  const SearchIcon = () => (
+    <svg 
+      style={searchIconStyles}
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke="currentColor" 
+      strokeWidth="2" 
+      strokeLinecap="round" 
+      strokeLinejoin="round"
+    >
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="m21 21-4.35-4.35"></path>
+    </svg>
+  );
+
+  const dropdownStyles = {
+    color: '#666666',
+    padding: '12px 16px',
+    border: '1px solid #d1d5db',
+    borderRadius: '8px',
+    fontSize: '14px',
+    fontFamily: 'Poppins, sans-serif',
+    outline: 'none',
+    backgroundColor: '#E5F6FD',
+    cursor: 'pointer',
+    minWidth: isMobile ? '100%' : '250px',
+    boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+  };
+
+  const resultsTextStyles = {
+    textAlign: 'center',
+    fontSize: '16px',
+    color: '#666666',
+    marginBottom: '30px',
+    fontFamily: 'Poppins, sans-serif'
   };
 
   const carouselContainerStyles = {
@@ -130,7 +220,7 @@ const LawnProsCarousel = () => {
     maxWidth: `${getCardWidth()}px`,
     flexShrink: 0,
     width: `${getCardWidth()}px`,
-    height: '280px'
+    height: 'auto'
   };
 
   const navigationStyles = {
@@ -187,11 +277,13 @@ const LawnProsCarousel = () => {
   const handleMouseEnter = (e) => {
     e.target.style.backgroundColor = '#28272796';
     e.target.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+    e.target.style.transform = 'translateY(-50%) scale(1.05)';
   };
 
   const handleMouseLeave = (e) => {
     e.target.style.backgroundColor = '#28272796';
     e.target.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+    e.target.style.transform = 'translateY(-50%) scale(1)';
   };
 
   const paginationStyles = {
@@ -220,46 +312,56 @@ const LawnProsCarousel = () => {
       id: 1,
       name: "Green Lawn Care",
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
-      rating: 4.8,
-      reviews: 105,
       avgPrice: 75,
-      available: true
+      available: true,
+      location: "Nashville, TN 37220",
+      serviceType: "Full Service Lawn Care near Timberwood",
+      testimonial: "I love Mercury Greens they always do such a detailed job.",
+      date: "Aug 8, 2025"
     },
     {
       id: 2,
-      name: "Perfect Yard Services",
+      name: "Family Cox",
       image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
-      rating: 4.8,
-      reviews: 98,
       avgPrice: 74,
-      available: true
+      available: true,
+      location: "Nashville, TN 37220",
+      serviceType: "Full Service Lawn Care near Timberwood",
+      testimonial: "Excellent service and very reliable team.",
+      date: "May 21, 2025"
     },
     {
       id: 3,
-      name: "Fresh Cut Crew",
+      name: "Lucian Radu",
       image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face",
-      rating: 4.8,
-      reviews: 98,
       avgPrice: 74,
-      available: true
+      available: true,
+      location: "Nashville, TN 37220",
+      serviceType: "Full Service Lawn Care near Timberwood",
+      testimonial: "Great quality work and fair pricing.",
+      date: "Jun 15, 2025"
     },
     {
       id: 4,
       name: "Elite Lawn Solutions",
       image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&h=100&fit=crop&crop=face",
-      rating: 4.9,
-      reviews: 87,
       avgPrice: 78,
-      available: true
+      available: true,
+      location: "Nashville, TN 37220",
+      serviceType: "Full Service Lawn Care near Timberwood",
+      testimonial: "Professional service and beautiful results.",
+      date: "Jul 3, 2025"
     },
     {
       id: 5,
       name: "Pro Lawn Masters",
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
-      rating: 4.7,
-      reviews: 112,
       avgPrice: 72,
-      available: true
+      available: true,
+      location: "Nashville, TN 37220",
+      serviceType: "Full Service Lawn Care near Timberwood",
+      testimonial: "Consistent quality and great communication.",
+      date: "Aug 12, 2025"
     }
   ];
 
@@ -282,8 +384,39 @@ const LawnProsCarousel = () => {
   return (
     <section style={sectionStyles}>
       <div style={containerStyles}>
+        {/* Main Header */}
         <div style={headerStyles}>
-          <h2 style={titleStyles}>Hire a Trusted Lawn Pro</h2>
+          <h2 style={titleStyles}>Find Trusted Lawn Care Pros Instantly</h2>
+          <p style={subtitleStyles}>Search by Name or Zip Code. Easy booking in seconds</p>
+        </div>
+
+        {/* Search Section */}
+        <div style={searchContainerStyles}>
+          <div style={searchBarStyles}>
+            <SearchIcon />
+            <input
+              type="text"
+              placeholder="Search by Name or Zip Code"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              style={searchInputStyles}
+            />
+          </div>
+          <select
+            value={selectedRadius}
+            onChange={(e) => setSelectedRadius(e.target.value)}
+            style={dropdownStyles}
+          >
+            <option value="1">Within 1 mile of ZIP</option>
+            <option value="3">Within 3 miles of ZIP</option>
+            <option value="5">Within 5 miles of ZIP</option>
+            <option value="10">Within 10 miles of ZIP</option>
+          </select>
+        </div>
+
+        {/* Results Count */}
+        <div style={resultsTextStyles}>
+          {providers.length} lawn pros found near you
         </div>
         
         <div 
@@ -293,10 +426,8 @@ const LawnProsCarousel = () => {
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          {/* Navigation Arrows - Only show on desktop/tablet */}
           {!isMobile && (
             <>
-              {/* Left Navigation Arrow */}
               <div 
                 style={leftNavStyles} 
                 onClick={prevSlide}
@@ -306,7 +437,6 @@ const LawnProsCarousel = () => {
                 <span style={leftArrowStyles}>‹</span>
               </div>
               
-              {/* Right Navigation Arrow */}
               <div 
                 style={rightNavStyles} 
                 onClick={nextSlide}
@@ -321,7 +451,7 @@ const LawnProsCarousel = () => {
           <div style={carouselTrackStyles}>
             {providers.map((provider) => (
               <div key={provider.id} style={cardStyles}>
-                <LawnProCard 
+                <LawnProCardNew 
                   provider={provider}
                   onClick={() => console.log(`Clicked on ${provider.name}`)}
                 />
@@ -344,4 +474,4 @@ const LawnProsCarousel = () => {
   );
 };
 
-export default LawnProsCarousel; 
+export default LawnProsSection; 

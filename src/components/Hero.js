@@ -66,31 +66,31 @@ const Hero = () => {
 
   return (
     <>
-      <section style={heroStyles}>
-        <div style={containerStyles}>
-          <h1 style={headingStyles}>
-            Professional Lawn Care Services in Columbus
-          </h1>
-          <div style={subtitleStyles}>
-            Fast, Easy, & Free Quotes
+    <section style={heroStyles}>
+      <div style={containerStyles}>
+        <h1 style={headingStyles}>
+          Professional Lawn Care Services in Columbus
+        </h1>
+        <div style={subtitleStyles}>
+          Fast, Easy, & Free Quotes
+        </div>
+        
+        <div style={formContainerStyles}>
+          <div style={formHeadingStyles}>
+            Book your grass cutting in 60 seconds
           </div>
           
-          <div style={formContainerStyles}>
-            <div style={formHeadingStyles}>
-              Book your grass cutting in 60 seconds
-            </div>
-            
             <SearchBar 
               onSubmit={handleSearchSubmit}
               placeholder="Enter your house address"
               buttonText="See Prices"
               showArrow={true}
               size="medium"
-            />
-          </div>
+              />
+            </div>
         </div>
       </section>
-      <LawnProsCarousel />
+        <LawnProsCarousel />
     </>
   );
 };

@@ -232,15 +232,13 @@ const LawnProCard = ({
 
   const handleMouseEnter = (e) => {
     if (onClick) {
-      e.target.style.transform = 'translateY(-2px)';
-      e.target.style.boxShadow = '0 8px 25px rgba(0,0,0,0.15)';
+      // Removed elevation effect - card stays in place
     }
   };
 
   const handleMouseLeave = (e) => {
     if (onClick) {
-      e.target.style.transform = 'translateY(0)';
-      e.target.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+      // Removed elevation effect - card stays in place
     }
   };
 
