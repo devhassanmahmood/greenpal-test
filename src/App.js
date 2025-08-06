@@ -1,20 +1,22 @@
-import React from 'react';
-import './App.css';
-import Header from './components/Header';
-import AsSeenIn from './components/AsSeenIn';
-import Reviews from './components/Reviews';
-import ServiceProviders from './components/ServiceProviders';
-import HowItWorks from './components/HowItWorks';
-import Footer from './components/Footer';
+import React from "react";
+import "./App.css";
+import Header from "./components/Header";
+import AsSeenIn from "./components/AsSeenIn";
+import Reviews from "./components/Reviews";
+import ServiceProviders from "./components/ServiceProviders";
+import HowItWorks from "./components/HowItWorks";
+import About from "./components/About";
+import Footer from "./components/Footer";
 
 function App() {
   return (
     <div className="App">
       <Header />
       <AsSeenIn />
-      <Reviews />
       <ServiceProviders />
       <HowItWorks />
+      <About />
+      <Reviews />
       <Footer />
     </div>
   );
