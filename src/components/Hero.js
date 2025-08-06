@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import LawnProsCarousel from './LawnProsCarousel';
+import SearchBar from './SearchBar';
 
 const Hero = () => {
   const [formData, setFormData] = useState({
@@ -14,9 +16,10 @@ const Hero = () => {
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'center',
-    paddingTop: '70px'
+    paddingTop: '70px',
+    flexDirection: 'column'
   };
 
   const containerStyles = {
@@ -24,7 +27,8 @@ const Hero = () => {
     margin: '0 auto',
     padding: '0 20px',
     textAlign: 'center',
-    color: '#ffffff'
+    color: '#ffffff',
+    width: '100%'
   };
 
   const headingStyles = {
@@ -56,146 +60,38 @@ const Hero = () => {
     fontWeight: '600'
   };
 
-  const inputGroupStyles = {
-    marginBottom: '20px'
-  };
-
-  const inputStyles = {
-    width: '100%',
-    padding: '15px',
-    border: '2px solid #e5e7eb',
-    borderRadius: '8px',
-    fontSize: '16px',
-    transition: 'border-color 0.3s ease',
-    boxSizing: 'border-box'
-  };
-
-  const buttonStyles = {
-    width: '100%',
-    padding: '15px',
-    backgroundColor: '#8fb741',
-    color: '#ffffff',
-    border: 'none',
-    borderRadius: '8px',
-    fontSize: '18px',
-    fontWeight: '600',
-    cursor: 'pointer',
-    transition: 'background-color 0.3s ease',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '10px'
-  };
-
-  const arrowStyles = {
-    height: '20px',
-    width: 'auto'
-  };
-
-  const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
-  };
-
-  const handleButtonHover = (e) => {
-    e.target.style.backgroundColor = '#7a9e3a';
-  };
-
-  const handleButtonLeave = (e) => {
-    e.target.style.backgroundColor = '#8fb741';
-  };
-
-  const handleInputFocus = (e) => {
-    e.target.style.borderColor = '#8fb741';
-  };
-
-  const handleInputBlur = (e) => {
-    e.target.style.borderColor = '#e5e7eb';
+  const handleSearchSubmit = (address) => {
+    console.log('Search submitted:', address);
   };
 
   return (
-    <section style={heroStyles}>
-      <div style={containerStyles}>
-        <h1 style={headingStyles}>
-          Professional Lawn Care Services in Columbus
-        </h1>
-        <div style={subtitleStyles}>
-          Fast, Easy, & Free Quotes
-        </div>
-        
-        <div style={formContainerStyles}>
-          <div style={formHeadingStyles}>
-            Book your grass cutting in 60 seconds
+    <>
+      <section style={heroStyles}>
+        <div style={containerStyles}>
+          <h1 style={headingStyles}>
+            Professional Lawn Care Services in Columbus
+          </h1>
+          <div style={subtitleStyles}>
+            Fast, Easy, & Free Quotes
           </div>
           
-          <form onSubmit={handleSubmit}>
-            <div style={inputGroupStyles}>
-              <input
-                type="text"
-                name="address"
-                placeholder="Enter your address"
-                value={formData.address}
-                onChange={handleInputChange}
-                style={inputStyles}
-                onFocus={handleInputFocus}
-                onBlur={handleInputBlur}
-                required
-              />
+          <div style={formContainerStyles}>
+            <div style={formHeadingStyles}>
+              Book your grass cutting in 60 seconds
             </div>
             
-            <div style={inputGroupStyles}>
-              <input
-                type="text"
-                name="name"
-                placeholder="Your Name"
-                value={formData.name}
-                onChange={handleInputChange}
-                style={inputStyles}
-                onFocus={handleInputFocus}
-                onBlur={handleInputBlur}
-                required
-              />
-            </div>
-            
-            <div style={inputGroupStyles}>
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleInputChange}
-                style={inputStyles}
-                onFocus={handleInputFocus}
-                onBlur={handleInputBlur}
-                required
-              />
-            </div>
-            
-            <button
-              type="submit"
-              style={buttonStyles}
-              onMouseEnter={handleButtonHover}
-              onMouseLeave={handleButtonLeave}
-            >
-              See Prices
-              <img 
-                style={arrowStyles}
-                alt="Arrow" 
-                src="https://greenpal-production.s3.amazonaws.com/images/local/shape-copy-13.svg"
-              />
-            </button>
-          </form>
+            <SearchBar 
+              onSubmit={handleSearchSubmit}
+              placeholder="Enter your house address"
+              buttonText="See Prices"
+              showArrow={true}
+              size="medium"
+            />
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <LawnProsCarousel />
+    </>
   );
 };
 
