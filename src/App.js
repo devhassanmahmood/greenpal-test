@@ -7,6 +7,7 @@ import ServiceProviders from './components/ServiceProviders';
 import HowItWorks from './components/HowItWorks';
 import About from "./components/About";
 import PromotionalSection from './components/PromotionalSection';
+import CostCalculator from './components/CostCalculator';
 import Footer from './components/Footer';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
       <AsSeenIn />
       <ServiceProviders />
       <HowItWorks />
+      <CostCalculator />
       <About />
       <Reviews />
       <PromotionalSection />
